@@ -1,21 +1,35 @@
 # 🧪 T2S Testing Portfolio — QA & Test Engineering
 
-> **Quality Assurance portfolio** for the **T2S (Text-to-Sign)** Arabic Sign Language translation system.  
-> This repository showcases a comprehensive testing strategy covering **unit**, **integration**, **system**, **performance**, **scenario-based**, and **manual** testing levels.
+[![Static Checks](https://github.com/Abdulrahman-Alshnani/T2S-Testing-Portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Abdulrahman-Alshnani/T2S-Testing-Portfolio/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python: 3.11](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
+[![Test Framework: pytest](https://img.shields.io/badge/Tested%20with-pytest-0A9EDC.svg)](https://docs.pytest.org/)
+
+> **Quality Assurance Portfolio** for the **T2S (Text-to-Sign)** Arabic Sign Language translation system.  
+> Demonstrates a comprehensive multi-tier test pyramid covering **unit**, **integration**, **subsystem**, **system**, **performance**, **scenario-based**, and **manual** quality verification.
+
+---
+
+## 🔒 Scope & Confidentiality
+
+This repository contains the **test suites, diagnostic tooling, and quality assurance documentation only**. The underlying proprietary production application codebase and trained neural model checkpoints are excluded. 
+
+The test files, schemas, and diagnostics are presented for code review, architectural audit, and QA portfolio evaluation. They illustrate test architecture, regression coverage, and defect prevention strategies designed for production Arabic NLP and multimodal systems.
 
 ---
 
 ## 📋 Project Context
 
-**T2S** translates Arabic text into Jordanian Sign Language (ArSL) video sequences. The system uses:
-- **Django REST API** backend
-- **AraBERT** (Arabic BERT) for semantic embeddings
-- **PostgreSQL + pgvector** for hybrid search
-- **Hybrid translation pipeline**: compound → lemma → semantic → not_found
+**T2S** translates Arabic text into Jordanian Sign Language (ArSL) video sequences. The system architecture consists of:
+- **Django REST API** backend service
+- **AraBERT** (Arabic BERT) for semantic vector embeddings
+- **PostgreSQL + pgvector** for high-dimensional hybrid search
+- **Four-Tier Hybrid Translation Pipeline**:
+  $$\text{Input Text} \longrightarrow \text{Compound Scan} \longrightarrow \text{Lemma Match} \longrightarrow \text{Semantic Vector Match} \longrightarrow \text{Honest Not-Found}$$
 
 ---
 
-## 🏗️ Testing Architecture
+## 🏗️ Repository Architecture
 
 ```
 T2S-Testing-Portfolio/
@@ -34,7 +48,7 @@ T2S-Testing-Portfolio/
 │   │   ├── test_serializers_unit.py
 │   │   └── test_warmup_view_unit.py
 │   │
-│   ├── integration/             # Database + service integration
+│   ├── integration/             # Database, RPC, and external boundary integration
 │   │   ├── test_database_integration.py
 │   │   ├── test_frontend_bridge.py
 │   │   ├── test_p1_ingestion_health.py
@@ -42,36 +56,36 @@ T2S-Testing-Portfolio/
 │   │   ├── test_search_service.py
 │   │   └── test_storage_urls.py
 │   │
-│   ├── subsystem/               # Multi-component pipeline tests
+│   ├── subsystem/               # Multi-component pipeline interaction tests
 │   │   ├── test_fallback_chain.py
 │   │   ├── test_nlp_to_search_pipeline.py
 │   │   └── test_warmup_then_translate.py
 │   │
-│   ├── system/                  # End-to-end black-box API tests
+│   ├── system/                  # End-to-end black-box API contract tests
 │   │   ├── test_api_contract.py
 │   │   ├── test_concurrency.py
 │   │   ├── test_honesty_principle_system.py
 │   │   ├── test_translation_view.py
 │   │   └── test_warmup_endpoint.py
 │   │
-│   ├── performance/             # Latency budgets & benchmarks
+│   ├── performance/             # Latency budgets & regression benchmarks
 │   │   ├── test_latency_budget.py
 │   │   ├── test_latency_single.py
 │   │   └── test_regression_suite.py
 │   │
-│   ├── scenarios/               # User-persona scenario tests
+│   ├── scenarios/               # User-persona acceptance tests (Sara persona)
 │   │   └── test_sara_persona.py
 │   │
-│   ├── coverage/                # Lexicon coverage analysis
+│   ├── coverage/                # Lexicon dictionary coverage validation
 │   │   └── test_lexicon_coverage.py
 │   │
-│   ├── manual/                  # Manual testing protocols
+│   ├── manual/                  # Exploratory & accessibility verification protocol
 │   │   └── manual_testing_protocol.md
 │   │
-│   ├── reports/                 # Test execution reports
+│   ├── reports/                 # Milestone test execution reports
 │   │   └── milestone_day1_report.md
 │   │
-│   └── conftest.py              # Shared fixtures & test configuration
+│   └── conftest.py              # Global fixtures, test isolation & markers
 │
 ├── scripts/
 │   ├── smoke-tests/             # Deployment & live API smoke validation
@@ -97,121 +111,117 @@ T2S-Testing-Portfolio/
 ├── config/                      # Test configuration references
 │   └── django_test_settings_reference.py
 │
+├── docs/                        # Root-Cause Analysis and defect registry
+│   └── DEFECTS_AND_RCA.md
+│
+├── requirements.txt             # Testing dependencies
+├── LICENSE                      # MIT License
 └── pytest.ini                   # Test runner configuration
 ```
 
 ---
 
-## 🎯 Testing Strategy
+## 🎯 Testing Strategy & Metrics
 
-### Test Pyramid Implementation
+### Test Suite Metrics
 
-```
-                    ╔══════════════╗
-                    ║   Manual     ║  ← Manual testing protocols
-                    ║  Testing     ║    (exploratory, accessibility)
-                    ╚══════╦═══════╝
-                   ╔═══════╩════════╗
-                   ║    System      ║  ← End-to-end API contract tests
-                   ║    Tests       ║    (black-box, concurrency)
-                   ╚═══════╦════════╝
-                ╔══════════╩═══════════╗
-                ║   Subsystem /        ║  ← Multi-component pipeline tests
-                ║   Integration        ║    (DB, storage, fallback chains)
-                ╚══════════╦═══════════╝
-           ╔═══════════════╩════════════════╗
-           ║         Unit Tests             ║  ← Isolated, fast, mocked
-           ║   (NLP, embeddings, serializers)║    (10+ test modules)
-           ╚════════════════════════════════╝
-```
+All metrics represent exact counts extracted directly from test modules via AST function inspection:
 
-### Testing Levels
-
-| Level | Count | Purpose | Tools |
-|-------|-------|---------|-------|
-| **Unit** | 10 modules | Isolated component validation with mocked dependencies | `pytest`, `unittest.mock` |
-| **Integration** | 4 modules | Database, storage URL, and frontend bridge verification | `pytest-django`, PostgreSQL |
-| **Subsystem** | 3 modules | Multi-component pipeline interaction testing | `pytest` |
-| **System** | 4 modules | Black-box API contract and concurrency testing | `pytest`, OpenAPI |
-| **Performance** | 3 modules | Latency budgets, single-request timing, regression | `pytest-benchmark` |
-| **Scenario** | 1 module | User-persona based testing (Sara persona) | `pytest` |
-| **Coverage** | 1 module | Lexicon coverage analysis across all entries | `pytest` |
-| **Smoke** | 3 scripts | Deployment validation and live API verification | Custom scripts |
-| **Manual** | 1 protocol | Human-executed exploratory testing checklist | Markdown protocol |
+| Testing Level | Modules | Test Cases | Primary Scope | Primary Frameworks / Tools |
+|---|:---:|:---:|---|---|
+| **Unit** | 12 | 86 | Morphological normalization, compound prescan, tokenizer, embeddings | `pytest`, `unittest.mock` |
+| **Integration** | 6 | 29 | Database connection, pgvector RPC queries, storage reachability, bridge | `pytest-django`, PostgreSQL |
+| **Subsystem** | 3 | 7 | Fallback chains, token-to-search pipeline flow, warmup lifecycle | `pytest` |
+| **System** | 5 | 33 | Black-box API contract verification, concurrency, Honesty Principle | `pytest`, Django REST Framework |
+| **Performance** | 3 | 6 | Latency budgets (P50/P95), single-request budgets, regressions | `pytest-benchmark` |
+| **Scenario** | 1 | 11 | End-to-end user journeys (deaf student Sara persona) | `pytest` |
+| **Coverage** | 1 | 10 | Complete dictionary lexicon and embedding vector completeness | `pytest` |
+| **Total Automated** | **31** | **182** | **Full Automated Test Pyramid** | `pytest` |
+| **Manual Protocols** | 1 | 5 sections | Visual verification, accessibility (WCAG), community feedback | Protocol Checklist |
 
 ---
 
-## 🔍 Key Testing Highlights
+## 🐛 Defects & Root-Cause Analysis (RCA)
 
-### 1. Honesty Principle Testing
-Tests that verify the system **never returns a wrong sign** — when confidence is below threshold, the API returns `not_found` instead of guessing:
+A cornerstone of this QA portfolio is systematic regression testing for documented defects. Full technical details, root cause analyses, and literal test assertions are maintained in [docs/DEFECTS_AND_RCA.md](docs/DEFECTS_AND_RCA.md).
+
+### Summary of Documented Defects
+
+| Defect ID | Description | Root Cause Category | Verified By |
+|---|---|---|---|
+| **DEF-01** | Hallucinated gloss "موت" in sports text | Sequence generator hallucination | `test_no_mawt_in_basketball_sentence` |
+| **DEF-02** | Hallucinated numeric gloss "مليون" in school text | Contextual language model bias | `test_no_million_in_education_sentence` |
+| **DEF-03** | Semantic drift: "الأحمر" returning "الأصفر" | Tight vector space clustering | `test_red_does_not_become_yellow` |
+| **DEF-04** | Coordination waw dropping conjoined terms | Tokenizer single-span assumption | `test_conjunction_keeps_both_sides` |
+| **DEF-05** | Standalone verb "يكتب" emitting "يأكل" and "هو" | Isolated token generation instability | `test_yiktub_does_not_return_yakul_and_huwa` |
+| **DEF-06** | Out-of-vocabulary words matching nearest neighbor | Lack of similarity threshold floor | `test_oov_word_returns_not_found` |
+| **DEF-07** | Implausible semantic match on single hover word | Over-permissive single-word vector tier | `test_implausible_semantic_single_token_becomes_not_found` |
+| **DEF-08** | Inappropriate pronoun substitution for missing words | Unconstrained fallback service output | `test_single_token_oov_returns_not_found_not_substitute` |
+| **DEF-09** | Stripping root letter 'و' from lemmas ("وزير" → "زير") | Naive conjunction prefix regex | `test_wazir_not_stripped_to_zir` |
+| **DEF-10** | Video playback 404 from bucket hyphenation mismatch | Asset URL naming inconsistency | `test_storage_urls_use_correct_bucket_name` |
+| **DEF-11** | Partial compound prescan emitting lone prefix | Greedy scanner without atomic match | `test_greedy_returns_none_when_only_prefix_is_known` |
+
+---
+
+## 🔍 Key Testing Implementations
+
+### 1. Honesty Principle Verification
+The system must never guess or substitute unrelated video clips. Out-of-vocabulary or low-similarity inputs must return `match_type="not_found"` with `storage_url=null`:
 
 ```python
-# test_honesty_principle_system.py
-def test_unknown_word_returns_not_found():
-    """System must NOT hallucinate a sign for unknown words."""
-    response = client.post("/api/v1/translate/", {"text": "فلسفة"})
-    assert response.data["videos"][0]["match_type"] == "not_found"
+# Literal test from tests/system/test_honesty_principle_system.py
+@pytest.mark.parametrize("oov_word", ["زوكربيرغ", "تشومسكي", "آينشتاين", "نيتشه"])
+def test_oov_word_returns_not_found(self, db, oov_word):
+    client = APIClient()
+    response = client.post("/api/v1/translate/", {"text": oov_word}, format="json")
+    assert response.status_code == 200
+    videos = response.json()["videos"]
+    not_found_rows = [v for v in videos if v["match_type"] == "not_found"]
+    assert len(not_found_rows) >= 1
 ```
 
-### 2. Arabic NLP Pipeline Testing
-Comprehensive tests for Arabic text normalization, diacritic stripping, and lemmatization:
+### 2. Lexical Grounding & Hallucination Filtering
+Verifies that generated translation glosses strictly correspond to words present in the source Arabic sentence:
 
 ```python
-# test_arabic_normalize.py
-@pytest.mark.parametrize("input_text,expected", [
-    ("السَّلامُ", ["سلام"]),      # Diacritic stripping
-    ("كرة القدم", ["كرة القدم"]),  # Compound preservation
-    ("المدرسة", ["مدرسة"]),        # Article removal
-])
-def test_preprocessing(input_text, expected):
-    assert preprocess_arabic_text(input_text) == expected
+# Literal test from tests/unit/test_hallucination_filter.py
+@pytest.mark.critical
+def test_no_mawt_in_basketball_sentence():
+    """The word 'موت' must never appear for a sentence about basketball."""
+    glosses = ["راقب", "أبناء", "موت", "سلة"]
+    text = "ثم راقب الأبناء وهم يلعبون كرة السلة في الملعب"
+    result = _filter_grounded(glosses, text)
+    assert "موت" not in result
 ```
 
-### 3. Performance Budget Testing
-Ensures translation latency stays within acceptable bounds:
+### 3. Arabic Morphology & Conjunction Handling
+Verifies proper segmentation of coordination conjunctions (`و`) without corrupting vocabulary roots:
 
 ```python
-# test_latency_budget.py
-@pytest.mark.performance
-def test_single_word_under_500ms():
-    """Single-word translation must complete within 500ms budget."""
-    start = time.perf_counter()
-    response = client.post("/api/v1/translate/", {"text": "أنا"})
-    elapsed = (time.perf_counter() - start) * 1000
-    assert elapsed < 500, f"Latency {elapsed:.0f}ms exceeds 500ms budget"
+# Literal test from tests/unit/test_nlp_pipeline_unit.py
+def test_wazir_not_stripped_to_zir(self):
+    """وزير is a lexicon lemma; legacy fallback must not strip its leading و."""
+    result = _legacy_regex_tokenize("تفقد وزير التعليم المدرسة")
+    assert "زير" not in result
+    assert "وزير" in result
 ```
 
-### 4. Hallucination Filter Testing
-Validates the semantic guard that prevents returning unrelated signs:
+### 4. Latency Budget Verification
+Guarantees response times remain bounded under load:
 
 ```python
-# test_hallucination_filter.py
-def test_rejects_unrelated_semantic_match():
-    """Semantic match must be rejected if surface forms don't overlap."""
-    # Prevents playing "cat" video when user searches "car"
-```
-
-### 5. User Scenario Testing (Sara Persona)
-Real-world user journey tests based on a deaf student persona:
-
-```python
-# test_sara_persona.py
-class TestSaraPersona:
-    """Sara is a deaf university student browsing Arabic news articles."""
-    
-    def test_sara_highlights_paragraph(self):
-        """Sara highlights a full paragraph — system returns ordered videos."""
-    
-    def test_sara_hovers_unknown_word(self):
-        """Sara hovers over a word not in lexicon — sees helpful 'not found' message."""
+# Literal test from tests/performance/test_latency_budget.py
+def test_warm_p50_under_1500ms(self, db):
+    """Median of 20 warm requests must be under 1.5 seconds."""
+    # ... execution loop ...
+    assert p50 < 1500, f"P50 latency was {p50}ms; expected <1500ms"
 ```
 
 ---
 
-## 🔧 Test Configuration
+## ⚙️ Test Execution & Configuration
 
-### pytest.ini — Test Markers
+### Registered Markers in `pytest.ini`
 
 ```ini
 [pytest]
@@ -222,74 +232,36 @@ markers =
     performance: Performance benchmarks
     use_case: User scenario tests
     contract: Contract validation tests
+    slow: Tests that take more than one second
+    critical: Milestone-critical tests
     honesty: Honesty Principle verification tests
     subsystem: Tests that verify two or more components together
     system: Black-box tests against the full Django pipeline
     coverage: Tests that iterate over every lexicon entry
     scenario: Use case scenario tests (Sara persona)
+    network: Tests that make external HTTP calls
+    requires_mbart: Tests that load the real mBART model
+    requires_arabert: Tests that load the real AraBERT model
     manual: Checklist for human execution only
 ```
 
-### Running Tests
+### Execution Commands
 
 ```bash
-# All automated tests (excludes slow, network, manual)
+# Run standard test suite (excluding slow, network, and manual tests)
 pytest tests/
 
-# By test level
+# Execute by test level
 pytest tests/unit/ -v
 pytest tests/integration/ -v
 pytest tests/system/ -v
 pytest tests/performance/ -v
 
-# By marker
-pytest -m critical          # Milestone-critical tests
-pytest -m honesty           # Honesty principle verification
-pytest -m "not slow"        # Quick feedback loop
-pytest -m scenario          # User persona tests
-
-# Smoke tests (against live API)
-python scripts/smoke-tests/smoke_test_demo_sentences.py
-python scripts/smoke-tests/smoke_test_arabic_lexicon.py
+# Execute by marker
+pytest -m critical          # Milestone-critical assertions
+pytest -m honesty           # Honesty Principle enforcement
+pytest -m scenario          # User persona acceptance journeys
 ```
-
----
-
-## 🛠️ Tools & Frameworks
-
-| Tool | Purpose |
-|------|---------|
-| **pytest** | Test runner and assertion framework |
-| **pytest-django** | Django integration for database and client fixtures |
-| **pytest-benchmark** | Performance measurement and regression detection |
-| **unittest.mock** | Dependency mocking for unit test isolation |
-| **OpenAPI (YAML)** | API contract validation |
-| **JSON Schema** | Lexicon data contract validation |
-
----
-
-## 📊 Test Metrics
-
-| Metric | Value |
-|--------|-------|
-| Total test modules | **25+** |
-| Test levels covered | **7** (unit, integration, subsystem, system, performance, scenario, manual) |
-| Custom pytest markers | **12** |
-| Smoke test scripts | **3** |
-| Smoke test sentences | **14** curated Arabic sentences |
-| Lexicon entries tested | **327** sign words |
-| Latency budget | **< 500ms** per single-word translation |
-
----
-
-## 📝 Manual Testing Protocol
-
-A structured manual testing checklist is provided in [`tests/manual/manual_testing_protocol.md`](tests/manual/manual_testing_protocol.md) for:
-- Browser compatibility testing
-- Chrome extension interaction testing
-- Accessibility verification
-- Arabic text rendering validation
-- Video playback verification
 
 ---
 

@@ -1,0 +1,9 @@
+# Test suite and verification dependencies for T2S-Testing-Portfolio
+# Extracted from test suite imports, pytest configuration, and execution reports.
+pytest
+pytest-django
+pytest-benchmark
+requests
+numpy
+django==6.0.5
+djangorestframework
