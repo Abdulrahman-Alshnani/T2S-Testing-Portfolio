@@ -1,0 +1,25 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+.Python
+venv/
+.venv/
+env/
+
+# IDE and OS
+.idea/
+.vscode/
+.cursor/
+.agents/
+.DS_Store
+Thumbs.db
+skills-lock.json
+
+# Test and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environment
+.env

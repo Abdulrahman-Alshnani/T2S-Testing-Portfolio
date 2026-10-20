@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "T2S Lexicon Entry Schema",
+  "description": "Contract between P1 (data pipeline) and P2 (backend). Each entry in the lexicon JSON array must conform to this schema.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "lemma",
+      "arabic_text",
+      "gloss_id",
+      "video_filename",
+      "is_compound",
+      "word_count"
+    ],
+    "properties": {
+      "lemma": {
+        "type": "string",
+        "description": "Canonical Arabic dictionary form (uninflected). Used as the primary key for lookup.",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "arabic_text": {
+        "type": "string",
+        "description": "Display form of the word/phrase as shown to users."
+      },
+      "gloss_id": {
+        "type": "string",
+        "description": "Standardized ArSL gloss notation identifier."
+      },
+      "video_filename": {
+        "type": "string",
+        "description": "Filename of the video in the Supabase sign-videos bucket. P2 constructs the full storage_url."
+      },
+      "is_compound": {
+        "type": "boolean",
+        "description": "TRUE if this is a multi-word compound phrase (e.g., 'رئيس الوزراء')."
+      },
+      "word_count": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Number of Arabic words in the lemma. 1 for single words, 2+ for compounds."
+      },
+      "category": {
+        "type": "string",
+        "description": "Semantic category (e.g., 'verbs', 'pronouns', 'family', 'greetings', 'general').",
+        "default": "general"
+      },
+      "duration_ms": {
+        "type": "integer",
+        "description": "Optional: video duration in milliseconds, if known."
+      },
+      "storage_url": {
+        "type": "string",
+        "description": "Optional: full public Supabase Storage URL when P1 provides it directly."
+      }
+    }
+  }
+}

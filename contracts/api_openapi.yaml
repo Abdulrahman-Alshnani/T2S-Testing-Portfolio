@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: T2S Translation API
+  description: Arabic highlight-to-sign translation backend for the Chrome extension (P3).
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Local development
+paths:
+  /api/v1/translate/:
+    post:
+      summary: Translate Arabic text to ordered sign video URLs
+      operationId: translateText
+      tags:
+        - Translation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+            example:
+              text: "السلام عليكم"
+      responses:
+        '200':
+          description: Successful translation with timing metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslationResponse'
+              example:
+                videos:
+                  - sequence_order: 1
+                    matched_lemma: "السلام عليكم"
+                    storage_url: "https://example.supabase.co/storage/v1/object/public/sign-videos/salam.mp4"
+                    match_type: compound
+                    confidence: 1.0
+                    gloss_id: GLOSS_SALAM
+                metadata:
+                  input_text: "السلام عليكم"
+                  lemma_count: 2
+                  timing_ms:
+                    validation: 2.1
+                    nlp: 8.4
+                    embedding: 210.5
+                    database: 145.2
+                    serialization: 3.0
+                    total: 380.0
+        '400':
+          description: Invalid input (empty, non-Arabic, or exceeds max length)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Valid Arabic input but no processable tokens after preprocessing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Unexpected server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    TranslationRequest:
+      type: object
+      required:
+        - text
+      properties:
+        text:
+          type: string
+          maxLength: 2500
+          description: Arabic text highlighted by the user on a webpage.
+    VideoResult:
+      type: object
+      required:
+        - sequence_order
+        - matched_lemma
+        - match_type
+      properties:
+        sequence_order:
+          type: integer
+        matched_lemma:
+          type: string
+        storage_url:
+          type: string
+          format: uri
+          nullable: true
+        match_type:
+          type: string
+          enum: [compound, lemma, semantic, not_found]
+        confidence:
+          type: number
+          format: float
+          nullable: true
+        gloss_id:
+          type: string
+          nullable: true
+    TranslationResponse:
+      type: object
+      required:
+        - videos
+        - metadata
+      properties:
+        videos:
+          type: array
+          items:
+            $ref: '#/components/schemas/VideoResult'
+        metadata:
+          type: object
+          properties:
+            input_text:
+              type: string
+            lemma_count:
+              type: integer
+            timing_ms:
+              type: object
+              additionalProperties:
+                type: number
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          oneOf:
+            - type: string
+            - type: object

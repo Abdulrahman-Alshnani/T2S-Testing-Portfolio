@@ -1,0 +1,137 @@
+[
+  {
+    "input": "قط",
+    "description": "cat",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_CAT",
+    "actual_gloss": "GLOSS_CAT",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "كلب",
+    "description": "dog",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_DOG",
+    "actual_gloss": "GLOSS_DOG",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "بقرة",
+    "description": "cow",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_COW",
+    "actual_gloss": "GLOSS_COW",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "أسد",
+    "description": "lion",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_LION",
+    "actual_gloss": "GLOSS_LION",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "طعام",
+    "description": "food",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_FOOD",
+    "actual_gloss": "GLOSS_FOOD",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "ماء",
+    "description": "water",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_WATER",
+    "actual_gloss": "GLOSS_WATER",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "خبز",
+    "description": "bread",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_BREAD",
+    "actual_gloss": "GLOSS_BREAD",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "أب",
+    "description": "father",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_DAD",
+    "actual_gloss": "GLOSS_DAD",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "أم",
+    "description": "mother",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_MOM",
+    "actual_gloss": "GLOSS_MOM",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "أحمر",
+    "description": "red",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_RED",
+    "actual_gloss": "GLOSS_RED",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "أزرق",
+    "description": "blue",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_BLUE",
+    "actual_gloss": "GLOSS_BLUE",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "مدرسة",
+    "description": "school",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_SCHOOL",
+    "actual_gloss": "GLOSS_SCHOOL",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "كتاب",
+    "description": "book",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_BOOK",
+    "actual_gloss": "GLOSS_BOOK",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "صلاة",
+    "description": "prayer",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_PRAYER",
+    "actual_gloss": "GLOSS_PRAYER",
+    "match_type": "lemma",
+    "has_url": true
+  },
+  {
+    "input": "شمس",
+    "description": "sun",
+    "result": "PASS",
+    "expected_gloss": "GLOSS_SUN",
+    "actual_gloss": "GLOSS_SUN",
+    "match_type": "lemma",
+    "has_url": true
+  }
+]
