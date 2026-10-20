@@ -2,7 +2,7 @@
 Pytest fixtures shared across the T2S test suite.
 
 Test data is isolated with category='__test__' and removed after each test.
-Integration tests use the production Supabase database (mirrored TEST config).
+Integration tests verify database connectivity against the configured test database.
 """
 
 from __future__ import annotations

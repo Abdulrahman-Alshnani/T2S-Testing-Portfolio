@@ -7,13 +7,11 @@
 
 ## 📋 Project Context
 
-**T2S** is a graduation project that translates Arabic text into Jordanian Sign Language (ArSL) video sequences. The system uses:
+**T2S** translates Arabic text into Jordanian Sign Language (ArSL) video sequences. The system uses:
 - **Django REST API** backend
 - **AraBERT** (Arabic BERT) for semantic embeddings
-- **Supabase/PostgreSQL + pgvector** for hybrid search
+- **PostgreSQL + pgvector** for hybrid search
 - **Hybrid translation pipeline**: compound → lemma → semantic → not_found
-
-🔗 **Main project repository**: [T2S-Project](https://github.com/Abdulrahman-Alshnani/T2S-Project)
 
 ---
 
@@ -132,7 +130,7 @@ T2S-Testing-Portfolio/
 | Level | Count | Purpose | Tools |
 |-------|-------|---------|-------|
 | **Unit** | 10 modules | Isolated component validation with mocked dependencies | `pytest`, `unittest.mock` |
-| **Integration** | 4 modules | Database, storage URL, and frontend bridge verification | `pytest-django`, Supabase |
+| **Integration** | 4 modules | Database, storage URL, and frontend bridge verification | `pytest-django`, PostgreSQL |
 | **Subsystem** | 3 modules | Multi-component pipeline interaction testing | `pytest` |
 | **System** | 4 modules | Black-box API contract and concurrency testing | `pytest`, OpenAPI |
 | **Performance** | 3 modules | Latency budgets, single-request timing, regression | `pytest-benchmark` |

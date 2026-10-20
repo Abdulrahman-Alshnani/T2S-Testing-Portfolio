@@ -1,7 +1,7 @@
 """
 Test-specific Django settings for the T2S backend.
 
-Uses the same Supabase Mumbai database as development. Test rows are isolated
+Uses the test PostgreSQL database environment. Test rows are isolated
 via category='__test__' and cleaned up automatically after each test.
 """
 

@@ -30,7 +30,7 @@
       },
       "video_filename": {
         "type": "string",
-        "description": "Filename of the video in the Supabase sign-videos bucket. P2 constructs the full storage_url."
+        "description": "Filename of the video in the sign-videos storage bucket. P2 constructs the full storage_url."
       },
       "is_compound": {
         "type": "boolean",
@@ -52,7 +52,7 @@
       },
       "storage_url": {
         "type": "string",
-        "description": "Optional: full public Supabase Storage URL when P1 provides it directly."
+        "description": "Optional: full public video storage URL when P1 provides it directly."
       }
     }
   }

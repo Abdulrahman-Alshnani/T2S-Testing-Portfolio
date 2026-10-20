@@ -32,7 +32,7 @@ paths:
                 videos:
                   - sequence_order: 1
                     matched_lemma: "السلام عليكم"
-                    storage_url: "https://example.supabase.co/storage/v1/object/public/sign-videos/salam.mp4"
+                    storage_url: "https://storage.example.com/sign-videos/salam.mp4"
                     match_type: compound
                     confidence: 1.0
                     gloss_id: GLOSS_SALAM

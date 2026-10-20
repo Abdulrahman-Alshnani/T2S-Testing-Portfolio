@@ -1,5 +1,5 @@
 """
-Verify the Django ORM can talk to Supabase Postgres correctly.
+Verify the Django ORM can talk to PostgreSQL correctly.
 
 These tests assume a populated database. They do not modify data.
 """
@@ -12,7 +12,7 @@ import pytest
 @pytest.mark.integration
 class TestDatabaseConnectivity:
 
-    def test_can_connect_to_supabase(self, db):
+    def test_can_connect_to_database(self, db):
         """Basic round trip: query the database, get a result back."""
         from django.db import connection
         with connection.cursor() as cursor:
@@ -41,7 +41,7 @@ class TestDatabaseConnectivity:
             row = cursor.fetchone()
             assert row is not None, (
                 "hybrid_translate_search PL/pgSQL function is not deployed. "
-                "Run database/functions/hybrid_translate_search.sql in Supabase SQL editor."
+                "Run database/functions/hybrid_translate_search.sql in database SQL console."
             )
 
     def test_lexicon_has_at_least_300_rows(self, db):

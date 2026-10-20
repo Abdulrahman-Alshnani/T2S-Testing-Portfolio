@@ -10,7 +10,7 @@ Deliver a JSON array conforming to `contracts/lexicon_schema.json`. Required fie
 
 ### Video files
 
-Upload validated clips to the Supabase bucket `sign-videos`. The filename in JSON must match the object key exactly.
+Upload validated clips to the storage bucket `sign-videos`. The filename in JSON must match the object key exactly.
 
 ### Embedding generation (offline)
 

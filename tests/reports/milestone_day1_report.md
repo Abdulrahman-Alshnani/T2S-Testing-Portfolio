@@ -3,7 +3,7 @@
 **Date:** 2026-05-19  
 **Tester:** P2 (Backend Engineer)  
 **System under test:** T2S Backend MVP  
-**Test environment:** Local Django 6.0.5 + Supabase Mumbai (mirrored test DB)
+**Test environment:** Local Django 6.0.5 + PostgreSQL (test environment)
 
 ---
 
