@@ -23,21 +23,23 @@ T2S-Testing-Portfolio/
 │   ├── unit/                    # Isolated component tests (mocked dependencies)
 │   │   ├── test_arabic_normalize.py
 │   │   ├── test_compound_prescan.py
+│   │   ├── test_embedding_service_real.py
 │   │   ├── test_embedding_service_unit.py
 │   │   ├── test_gloss_translator_service.py
 │   │   ├── test_gloss_translator_unit.py
 │   │   ├── test_hallucination_filter.py
 │   │   ├── test_lexicon_input_service.py
+│   │   ├── test_nlp_align.py
 │   │   ├── test_nlp_pipeline_unit.py
 │   │   ├── test_serializers_unit.py
 │   │   └── test_warmup_view_unit.py
 │   │
 │   ├── integration/             # Database + service integration
-│   │   └── test_p1_ingestion_health.py
-│   │
-│   ├── integration_new/         # Extended integration tests
 │   │   ├── test_database_integration.py
 │   │   ├── test_frontend_bridge.py
+│   │   ├── test_p1_ingestion_health.py
+│   │   ├── test_rpc_function.py
+│   │   ├── test_search_service.py
 │   │   └── test_storage_urls.py
 │   │
 │   ├── subsystem/               # Multi-component pipeline tests
@@ -49,6 +51,7 @@ T2S-Testing-Portfolio/
 │   │   ├── test_api_contract.py
 │   │   ├── test_concurrency.py
 │   │   ├── test_honesty_principle_system.py
+│   │   ├── test_translation_view.py
 │   │   └── test_warmup_endpoint.py
 │   │
 │   ├── performance/             # Latency budgets & benchmarks
@@ -68,36 +71,33 @@ T2S-Testing-Portfolio/
 │   ├── reports/                 # Test execution reports
 │   │   └── milestone_day1_report.md
 │   │
-│   ├── conftest.py              # Shared fixtures & test configuration
-│   ├── test_embedding_service.py
-│   ├── test_nlp_align.py
-│   ├── test_rpc_function.py
-│   ├── test_search_service.py
-│   └── test_translation_view.py
+│   └── conftest.py              # Shared fixtures & test configuration
 │
 ├── scripts/
-│   ├── smoke-tests/             # Smoke test scripts for deployment validation
+│   ├── smoke-tests/             # Deployment & live API smoke validation
+│   │   ├── smoke_results.json
+│   │   ├── smoke_test_api_manual.py
 │   │   ├── smoke_test_arabic_lexicon.py
 │   │   ├── smoke_test_demo_sentences.py
-│   │   ├── smoke_test_mbart_pipeline.py
-│   │   └── smoke_results.json
+│   │   └── smoke_test_mbart_pipeline.py
 │   │
-│   └── debug/                   # Debug & diagnostic scripts
+│   └── diagnostics/             # Pipeline diagnostics & troubleshooting
+│       ├── README.md
 │       ├── debug_word_match.py
 │       ├── diagnose_mbart_outputs.py
 │       ├── diagnose_pipeline_timing.py
 │       ├── trace_translation.py
-│       ├── validate_demo_article.py
-│       └── ...
+│       └── validate_demo_article.py
 │
 ├── contracts/                   # API & data contracts used for contract testing
 │   ├── api_openapi.yaml
-│   ├── lexicon_schema.json
-│   └── integration_notes.md
+│   ├── integration_notes.md
+│   └── lexicon_schema.json
 │
-├── pytest.ini                   # Test runner configuration
-├── test_api.py                  # Quick API smoke test
-└── core_settings_test.py        # Django test settings (reference)
+├── config/                      # Test configuration references
+│   └── django_test_settings_reference.py
+│
+└── pytest.ini                   # Test runner configuration
 ```
 
 ---

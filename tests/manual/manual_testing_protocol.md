@@ -1,8 +1,8 @@
 # T2S Manual Testing Protocol
 
-This is a checklist for human-executed verification. Cursor cannot run these
-tests because they require human judgment about video correctness, Arabic
-fluency, and accessibility quality.
+This is a checklist for human-executed verification. Automated test runners
+cannot execute these tests because they require human judgment about video correctness,
+Arabic fluency, and accessibility quality.
 
 ## Schedule
 
@@ -10,7 +10,7 @@ Run this protocol:
 - Before any milestone demo
 - After any major model retraining
 - Quarterly during regular operation
-- Before submitting the final thesis
+- Before final milestone delivery
 
 ## Section A — Visual verification (30 minutes)
 
@@ -87,11 +87,11 @@ live. Ask:
 5. What would make you more likely to use it?
 
 Document all feedback verbatim in `tests/manual/community_feedback_<date>.md`.
-This document goes in the thesis appendix.
+This document is archived for QA review.
 
 ## Section E — Demo run-through
 
-Before the supervisor demo, run a full dress rehearsal:
+Before the major milestone demo, run a full dress rehearsal:
 
 1. Start Django server. Wait for "All inference models warmed and ready."
 2. Open the React app in Chrome.
